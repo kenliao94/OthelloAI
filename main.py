@@ -6,7 +6,8 @@ from logger import *
 from config import *
 
 #Init the game, initiating human, ai, board and logger
-
+p1 = AI(Piece.BLACK)
+p2 = Human(Piece.WHITE)
 
 #Actually play the game
 game_end = False
