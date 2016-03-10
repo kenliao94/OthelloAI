@@ -6,7 +6,7 @@ from game import *
 from config import *
 
 #Init the game, initiating human, ai, board and logger
-p1 = AI(Piece.BLACK)
+p1 = AI(Piece.BLACK,AI_PROPERTY.RESPONSE_TIME,AI_PROPERTY.EASY_LEVEL)
 p2 = Human(Piece.WHITE)
 board = Board([])
 #start the game

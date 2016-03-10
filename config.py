@@ -12,10 +12,12 @@ class Player:
 class Board_Property:
     BOARD_SIZE = 8
 
-class DIFFICULTY:
-    EASY = 1
-    MEDIUM = 2
-    HARD = 3
+class AI_PROPERTY:
+    EASY_LEVEL = 1
+    MEDIUM_LEVEL = 2
+    HARD_LEVEL = 3
+    RESPONSE_TIME = 1
+
 
 
 

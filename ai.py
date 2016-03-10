@@ -1,4 +1,5 @@
 from config import *
+from gametree import *
 
 class AI:
     def __init__(self,color,responseTime,difficulty):
@@ -6,8 +7,7 @@ class AI:
         self.responseTime = responseTime
         self.difficulty = difficulty
 
-    def thinking(self,board):
-        #the board is useless, use standard I/O
+    def thinking(self,board,possible_move):
         return ()
 
     # MUCH more internal routine to make things work
