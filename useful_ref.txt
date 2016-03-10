@@ -1,0 +1,3 @@
+A cornell implemnetation of minimax with alpha beta
+https://www.cs.cornell.edu/courses/cs312/2002sp/lectures/rec21.htm
+
