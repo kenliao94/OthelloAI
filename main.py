@@ -2,37 +2,16 @@
 from human import *
 from ai import *
 from board import *
-from logger import *
+from game import *
 from config import *
 
 #Init the game, initiating human, ai, board and logger
 p1 = AI(Piece.BLACK)
 p2 = Human(Piece.WHITE)
+board = Board([])
+#start the game
+game1 = Game("Game1",p1,p2,board)
+game1.start()
+game1.print_game_status()
 
-#Actually play the game
-game_end = False
-current_round = Player.FIRST
-while game_end:
-    board.print_broad() #Displaying the board
-    #First player move, can be either AI or human
-    if current_round == Player.FIRST:
-        move_is_valid = False
-        while not move_is_valid:
-            move = p1.thinking(board.get_board())
-            move_is_valid = board.make_move(move,p1.color)
-        current_round = Player.SECOND
-    else:
-        move_is_valid = False
-        while not move_is_valid:
-            move = p2.thinking(board.get_board())
-            move_is_valid = board.make_move(move,p2.color)
-        current_round = Player.FIRST
-
-    if board.check_end_game():
-        game_end = True #game end
-
-#POST Game
-#Annouce winner
-winner = board.get_winner()
-stars = logger.get_stats()
 
