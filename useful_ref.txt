@@ -1,3 +1,5 @@
 A cornell implemnetation of minimax with alpha beta
 https://www.cs.cornell.edu/courses/cs312/2002sp/lectures/rec21.htm
 
+Useful resource about reversi strategy (given by the prof)
+http://www.radagast.se/othello/Help/strategy.html
