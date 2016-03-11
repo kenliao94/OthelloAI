@@ -5,5 +5,17 @@ http://www.radagast.se/othello/Help/strategy.html
 
 MileStone:
 
+March 11st 2016 : Finish proposal
+March 15th 2016 : Human VS Human
+April 1st 2016 : Finish the entire thing(code)except report
+
+
+
+To-Do-List:
+1. Finish board.py
+2. Finish human.py
+3. Finish gametree.py
+4. Finsih ai.py
+
 
 
