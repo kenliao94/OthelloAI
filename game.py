@@ -24,11 +24,15 @@ class Game:
                 if move is None:
                     #That means there is no possible move, which can happen during the game
                     self.current_round = Player.SECOND
+                else:
+                    self.board.make_move(move,self.player1.color)
             else:
                 #Player 2
                 move = self.player2.thinking(self.board.get_board(),self.board.get_possible_move(self.player2.color))
                 if move is None:
                     self.current_round = Player.SECOND
+                else:
+                    self.board.make_move(move,self.player1.color)
 
             #Check end game:
             if self.board.check_end_game():
