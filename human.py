@@ -37,3 +37,4 @@ class Human:
 # b = Board()
 # c = a.thinking(b, [(1, 3), (2, 3)])
 # print(c)
+# print('oh yeahhhh')
