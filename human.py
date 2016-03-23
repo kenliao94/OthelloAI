@@ -8,7 +8,7 @@ class Human:
         #the board is useless, use standard I/O
         print(board)
         if len(possible_move) == 0:
-            print('none')
+            print('No legal move available for human. Computer will make a move.')
             return
         else:
 
@@ -29,12 +29,13 @@ class Human:
                 if len(human_move.split(',')) == 2 and row.isnumeric() and column.isnumeric() and (int(row),int(column)) in possible_move:
                     return (int(row),int(column))
                 else:
+                    print(board)
                     print('Your move is invalid')
 
 
 
-# a = Human('white')
-# b = Board()
-# c = a.thinking(b, [(1, 3), (2, 3)])
-# print(c)
-# print('oh yeahhhh')
+a = Human('white')
+b = Board()
+c = a.thinking(b, [(1, 3), (2, 3)])
+print(c)
+
