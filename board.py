@@ -10,7 +10,7 @@ class Board:
 
         Note : The board index from 0 to 7 Board[][] is indexed as row x column
         '''
-        if board == None:
+        if board == []:
             board = [[Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
                      [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
                      [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
@@ -99,10 +99,22 @@ class Board:
         '''
         return Piece.BLACK
 
-    def print_broad(self):
+    def print_board(self):
         '''
         Print the board beautifully on terminal
         '''
+        print("The board is:")
+        print("  0 1 2 3 4 5 6 7")
+        for row in range(8):
+            print(row, end = " ")
+            for column in range(8):
+                if self.board[row][column] == Piece.VOID:
+                    print(" ", end = " ")
+                elif self.board[row][column] == Piece.BLACK:
+                    print("*", end = " ")
+                elif self.board[row][column] == Piece.WHITE:
+                    print("o", end = " ")
+            print("", end="\n")
         return
 
     def get_board(self):
