@@ -47,7 +47,26 @@ class Board:
 
             Note : Please don't change the board, i.e don't make change to the board array, just read
         '''
-        return []
+        #Right now, screw run time, just get it to work. Do Linear search
+
+        possible_move = []
+        for row in range(8):
+            for column in range(8):
+                if self.board[row][column] == Piece.BLACK or self.board[row][column] == Piece.WHITE:
+                    #space already occupied
+                    continue
+                else:
+                    #space is void
+                    if self.check_vertical((row,column),color):
+                        possible_move.append((row,column))
+                        continue
+                    if self.check_horizontal((row,column),color):
+                        possible_move.append((row,column))
+                        continue
+                    if self.check_diagonal((row,column),color):
+                        possible_move.append((row,column))
+
+        return possible_move
 
     #End Game
     def check_end_game(self):
