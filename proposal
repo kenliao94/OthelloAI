@@ -1,0 +1,35 @@
+Title of the project: Reversi
+
+Type of project: Game Tree Search
+
+Project Description:
+Reversi is a two-player board game played on a 8X8 board.
+The pieces called “disks” using on the board have one side
+in black and the other side in white. Each player
+(Player A or Player B) puts disks in the grid with his/her
+assigned color on top. At every turn, one player(Player A)
+places a disk of his/her color adjacent to one of Player B’s
+disks on an unoccupied square on the board, but there must be
+one or more of Player B’s disks between the disc(D1) Player A
+just placed and another Player A’s disc(D2) on the board already.
+Then Player A will flip all Player B’s disks between D1 and D2 to
+his/her color. Game is over when neither Player A nor Player B
+has a legal move. The winner is the player who has more disks of
+his/her color on the board. We will make two modes in this game,
+human vs computer_A or computer_A vs computer_B.  A minimax game
+tree will be used to show all available legal moves in each turn.
+Number of black pieces on the board after each possible legal move
+is also labeled on the tree, which is the first heuristic function
+value. In addition, at each turn we will set each disk a value
+representing the distance between that piece and its closest boundary.
+The second heuristic function will return the sum of value for each
+pieces belonging to each player after taking any legal move.
+
+Brief evaluation plan:
+We will set Computer_A to use heuristic value associated with black
+pieces and set Computer_B  to use heuristic value associated with the
+total sum of assigned value on the board. Computer_A will make a move
+which might lead to the maximum black piece on the board after five
+moves while Computer_B will make a move based on maximum value from
+the second heuristic function. We will run the game over and over again
+to compare the winning time and how many moves made to win for each player.
