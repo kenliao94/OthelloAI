@@ -7,7 +7,18 @@ class Board:
         '''
         This function should create the board, in this case, it is represented as a 2D array with
         starter position. The board size is defined in config.py
+
+        Note : The board index from 0 to 7 Board[][] is indexed as row x column
         '''
+        if board == None:
+            board = [[Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
+                     [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
+                     [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
+                     [Piece.VOID, Piece.VOID, Piece.VOID, Piece.BLACK, Piece.WHITE, Piece.VOID, Piece.VOID, Piece.VOID],
+                     [Piece.VOID, Piece.VOID, Piece.VOID, Piece.WHITE, Piece.BLACK, Piece.VOID, Piece.VOID, Piece.VOID],
+                     [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
+                     [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
+                     [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID]]
         self.board = board
         return
 
@@ -15,12 +26,26 @@ class Board:
     def make_move(self,coordinate_tuple,color):
         '''
         It will make a move and change the board accordingly. The color is the current player
+        Example:
+            Input : Board.make_move((1,2),Piece.Black) or Board.make_move((1,2),Player.color)
+            The first parameter is a coordinate in the type of tuple, second parameter is an enum to color
+
+            This code should change the board based on that move, i.e if I call Board.make_move(3,5), then the white piece at (3,4) will change
+
+            Output : 1 if succeeded, 0 if failed
         '''
         return True
 
     def get_possible_move(self,color):
         '''
         Return a list of coordinate_tuple that the current player (with color) can play. If not possible then empty
+        Example :
+            Input:
+                Board.get_possible_move(Piece.Black)
+            Output:
+                [(3,5),(2,4),(4,2),(5,3)]  //Refer to the board in the init method
+
+            Note : Please don't change the board, i.e don't make change to the board array, just read
         '''
         return []
 
@@ -28,6 +53,14 @@ class Board:
     def check_end_game(self):
         '''
         This function is called to see if the board is filled
+        Example :
+            Input : None
+            Output : true if it is ended, false if not
+
+            Cases :
+            1. The board is filled
+            2. There is only one color (i.e, even the board is not filled, there is a possiblity that black gets wiped out, hence white wins)
+
         '''
         return True
 
@@ -60,6 +93,9 @@ class Board:
     def get_winner(self):
         '''
         Return the color that won
+        Output : Piece.White
+                 Piece.Black
+                 Piece.TIE # if they tie
         '''
         return Piece.BLACK
 
