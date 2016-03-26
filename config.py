@@ -4,6 +4,7 @@ class Piece:
     BLACK = 1
     WHITE = 2
     VOID = 3
+    TIE = 4
 
 class Player:
     FIRST = 1
