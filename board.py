@@ -140,6 +140,7 @@ class Board:
 
         #check the pieces underneath coordinate_tuple in the same column, hence the number column_count goes up
         row_count = coordinate_tuple[0]
+        affected_pieces = []
         while row_count < 7:
             # check the one on the left side of it, hence decrementing
             row_count += 1
