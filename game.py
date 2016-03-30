@@ -16,23 +16,29 @@ class Game:
     def start(self):
         game_end = False
         while not game_end:
-            self.board.print_broad()
+            self.board.print_board()
             #First player move, can be either AI or human
             if self.current_round == Player.FIRST:
+                print("Player 1's turn")
                 #Player 1
-                move = self.player1.thinking(self.board.get_board(),self.board.get_possible_move(self.player1.color))
+                move = self.player1.thinking(self.board,self.board.get_possible_move(self.player1.color))
                 if move is None:
                     #That means there is no possible move, which can happen during the game
+                    #print("Changing player")
                     self.current_round = Player.SECOND
                 else:
                     self.board.make_move(move,self.player1.color)
+                    #print("Changing player case b")
+                    self.current_round = Player.SECOND
             else:
                 #Player 2
-                move = self.player2.thinking(self.board.get_board(),self.board.get_possible_move(self.player2.color))
+                print("Player 2's turn")
+                move = self.player2.thinking(self.board,self.board.get_possible_move(self.player2.color))
                 if move is None:
-                    self.current_round = Player.SECOND
+                    self.current_round = Player.FIRST
                 else:
-                    self.board.make_move(move,self.player1.color)
+                    self.board.make_move(move,self.player2.color)
+                    self.current_round = Player.FIRST
 
             #Check end game:
             if self.board.check_end_game():
