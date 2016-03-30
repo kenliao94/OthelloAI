@@ -20,6 +20,7 @@ class Board:
                      [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
                      [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID]]
         self.board = board
+
         return
 
 
@@ -30,11 +31,33 @@ class Board:
             Input : Board.make_move((1,2),Piece.Black) or Board.make_move((1,2),Player.color)
             The first parameter is a coordinate in the type of tuple, second parameter is an enum to color
 
-            This code should change the board based on that move, i.e if I call Board.make_move(3,5), then the white piece at (3,4) will change
+            This code should change the board based on that move, i.e if I call Board.make_move(3,5),
+            then the white piece at (3,4) will change
 
             Output : 1 if succeeded, 0 if failed
         '''
-        return True
+        print('here is the coordinate cuple in make move : ' + str(coordinate_tuple) + ' by player' + str(color))
+        all = []
+        vertical = self.check_vertical(coordinate_tuple,color)
+        # print('vertical '+str(vertical))
+        horizontal = self.check_horizontal(coordinate_tuple,color)
+        # print('horizontal '+str(horizontal))
+        diagonal = self.check_diagonal(coordinate_tuple,color)
+        # print('diagonal '+str(diagonal))
+        all.extend(vertical)
+        all.extend(horizontal)
+        all.extend(diagonal)
+        # print('all '+str(all))
+        if len(all) == 0:
+            return 0
+
+        self.board[coordinate_tuple[0]][coordinate_tuple[1]] = color
+        for piece in all:
+
+            self.board[piece[0]][piece[1]] = color
+
+
+        return 1
 
     def get_possible_move(self,color):
         '''
@@ -57,20 +80,20 @@ class Board:
                     continue
                 else:
                     #space is void
-                    if self.check_vertical((row,column),color):
+                    if len(self.check_vertical((row,column),color)) != 0:
                         possible_move.append((row,column))
                         continue
-                    if self.check_horizontal((row,column),color):
+                    if len(self.check_horizontal((row,column),color)) != 0:
                         possible_move.append((row,column))
                         continue
-                    if self.check_diagonal((row,column),color):
+                    if len(self.check_diagonal((row,column),color)) != 0:
                         possible_move.append((row,column))
-
+        print('possible moves: ' + str(possible_move))
         return possible_move
 
     #End Game
     def check_end_game(self):
-        '''
+        """
         This function is called to see if the board is filled
         Example :
             Input : None
@@ -78,78 +101,207 @@ class Board:
 
             Cases :
             1. The board is filled
-            2. There is only one color (i.e, even the board is not filled, there is a possiblity that black gets wiped out, hence white wins)
+            2. There is only one color (i.e, even the board is not filled, there is a possiblity that
+            black gets wiped out, hence white wins)
 
-        '''
-        return True
+        """
+        # pieces_count : {Piece.BLACK: num, Piece.WHITE : num, Piece.VOID : num}
+        pieces_count = self.return_pieces_count()
 
-    #Internal routine for make_move,
+        if pieces_count[Piece.VOID] == 0 or pieces_count[Piece.BLACK] == 0 or pieces_count[Piece.WHITE] == 0:
+            return True
+        return False
+
+    #Internal routine for make_move
     def check_vertical(self,coordinate_tuple,color):
-        '''
-        See if that move will flip any pieces vertically (up and down)
-        '''
-        #Check Up
-        up_count = coordinate_tuple[1]
-        found_opposite_color = False
+        """
+        return all pieces need to be flipped at this column (up and down)
+        """
+        result = []
+        affected_pieces = []
+        row_count = coordinate_tuple[0]
         opposite_color = self.get_opposite_color(color)
-        #the up is looking up the board, hence the number goes down
-        while up_count > 0:
-            # check the one above it, hence decrementing
-            up_count = up_count - 1
-            if self.board[coordinate_tuple[0]][up_count] == color and not found_opposite_color:
-                #that means the color is the same, generating an invalid move in the upward direction
+        #check the pieces on top of coordinate_tuple in the same column, hence the number column_count goes down
+        while row_count > 0:
+            # check the one on the left side of it, hence decrementing
+            row_count -= 1
+            if self.board[row_count][coordinate_tuple[1]] == color:
+                if len(affected_pieces) > 0:
+                    result.extend(affected_pieces)
                 break
-            elif self.board[coordinate_tuple[0]][up_count] == color and found_opposite_color:
-                #found a valid move
-                return True
-            elif self.board[coordinate_tuple[0]][up_count] == opposite_color:
-                found_opposite_color = True
-                #keep checking
+            elif self.board[row_count][coordinate_tuple[1]] == opposite_color:
+                affected_pieces.append((row_count, coordinate_tuple[1]))
                 continue
-            elif self.board[coordinate_tuple[0]][up_count] == Piece.VOID:
+            elif self.board[row_count][coordinate_tuple[1]] == Piece.VOID:
                 #again generating an invalid move
                 break
             else:
                 raise NameError("Unexpected case at check_vertical, up case")
 
-        up_count = coordinate_tuple[1]
-        found_opposite_color = False
-        opposite_color = self.get_opposite_color(color)
-        #check down
-        # The down is looking down the board, hence number goes up
-        while up_count < 7:
-            # check the one above it, hence decrementing
-            up_count = up_count + 1
-            if self.board[coordinate_tuple[0]][up_count] == color and not found_opposite_color:
-                #that means the color is the same, generating an invalid move in the upward direction
+        #check the pieces underneath coordinate_tuple in the same column, hence the number column_count goes up
+        row_count = coordinate_tuple[0]
+        while row_count < 7:
+            # check the one on the left side of it, hence decrementing
+            row_count += 1
+            if self.board[row_count][coordinate_tuple[1]] == color:
+                if len(affected_pieces) > 0:
+                    result.extend(affected_pieces)
                 break
-            elif self.board[coordinate_tuple[0]][up_count] == color and found_opposite_color:
-                #found a valid move
-                return True
-            elif self.board[coordinate_tuple[0]][up_count] == opposite_color:
-                found_opposite_color = True
-                #keep checking
+            elif self.board[row_count][coordinate_tuple[1]] == opposite_color:
+                affected_pieces.append((row_count, coordinate_tuple[1]))
                 continue
-            elif self.board[coordinate_tuple[0]][up_count] == Piece.VOID:
+            elif self.board[row_count][coordinate_tuple[1]] == Piece.VOID:
                 #again generating an invalid move
                 break
             else:
                 raise NameError("Unexpected case at check_vertical, down case")
+        # print('here is check_vertical result1: '+ str(affected_pieces))
+        # print('result ' + str(result))
+        return result
 
-        #No valid move is found, return false 
-        return False
 
     def check_horizontal(self,coordinate_tuple,color):
-        '''
-        See if that move will flip any pieces horizontal (left and right)
-        '''
-        return True
+        """
+        return all pieces need to be flipped in this row (left and right)
+        """
+        result = []
+        affected_pieces = []
+        column_count = coordinate_tuple[1]
+        opposite_color = self.get_opposite_color(color)
+        #check the left side of the piece located at coordinate_tuple, hence the number column_count goes down
+        while column_count > 0:
+            # check the one on the left side of it, hence decrementing
+            column_count -= 1
+            if self.board[coordinate_tuple[0]][column_count] == color:
+                if len(affected_pieces) > 0:
+                    result.extend(affected_pieces)
+                break
+            elif self.board[coordinate_tuple[0]][column_count] == opposite_color:
+                affected_pieces.append((coordinate_tuple[0], column_count))
+                continue
+            elif self.board[coordinate_tuple[0]][column_count] == Piece.VOID:
+                #again generating an invalid move
+                break
+            else:
+                raise NameError("Unexpected case at check_horizontal, left case")
+
+
+        #check the right side of the piece located at coordinate_tuple, hence the number column_count goes up
+        affected_pieces = []
+        column_count = coordinate_tuple[1]
+        while column_count < 7:
+            # check the one on the left side of it, hence decrementing
+            column_count += 1
+            if self.board[coordinate_tuple[0]][column_count] == color:
+                if len(affected_pieces) > 0:
+                    result.extend(affected_pieces)
+                break
+            elif self.board[coordinate_tuple[0]][column_count] == opposite_color:
+                affected_pieces.append((coordinate_tuple[0], column_count))
+                continue
+            elif self.board[coordinate_tuple[0]][column_count] == Piece.VOID:
+                #again generating an invalid move
+                break
+            else:
+                raise NameError("Unexpected case at check_horizontal, right case")
+        # print(str(affected_pieces))
+        # print('here is check_horizontal result: '+ str(affected_pieces))
+        # print('here is check_horizontal result1: '+ str(result))
+        return result
+
 
     def check_diagonal(self,coordinate_tuple,color):
-        '''
+        """
         See if that move will flip any pieces diagonally (two slash)
-        '''
-        return True
+        """
+
+        result = []
+        affected_pieces = []
+        opposite_color = self.get_opposite_color(color)
+
+        # North West direction
+        row = coordinate_tuple[0]
+        column = coordinate_tuple[1]
+        while row > 0 and column > 0:
+            row -= 1
+            column -= 1
+            if self.board[row][column] == color:
+                if len(affected_pieces) > 0:
+                    result.extend(affected_pieces)
+                break
+            elif self.board[row][column] == opposite_color:
+                affected_pieces.append((row, column))
+                continue
+            elif self.board[row][column] == Piece.VOID:
+                #again generating an invalid move
+                break
+            else:
+                raise NameError("Unexpected case at check_diagonal, N-W case")
+        # print('affected_pieces ' + str(affected_pieces))
+        # North East direction
+        affected_pieces = []
+        row = coordinate_tuple[0]
+        column = coordinate_tuple[1]
+        while row > 0 and column < 7:
+            row -= 1
+            column += 1
+            if self.board[row][column] == color:
+                if len(affected_pieces) > 0:
+                    result.extend(affected_pieces)
+                break
+            elif self.board[row][column] == opposite_color:
+                affected_pieces.append((row, column))
+                continue
+            elif self.board[row][column] == Piece.VOID:
+                #again generating an invalid move
+                break
+            else:
+                raise NameError("Unexpected case at check_diagonal, N-E case")
+
+        # print('affected_pieces ' + str(affected_pieces))
+        # South West direction
+        affected_pieces = []
+        row = coordinate_tuple[0]
+        column = coordinate_tuple[1]
+        while row < 7 and column > 0:
+            row += 1
+            column -= 1
+            if self.board[row][column] == color:
+                if len(affected_pieces) > 0:
+                    result.extend(affected_pieces)
+                break
+            elif self.board[row][column] == opposite_color:
+                affected_pieces.append((row, column))
+                continue
+            elif self.board[row][column] == Piece.VOID:
+                #again generating an invalid move
+                break
+            else:
+                raise NameError("Unexpected case at check_diagonal, S-W case")
+
+        # print('affected_pieces ' + str(affected_pieces))
+        # South Eest direction
+        affected_pieces = []
+        row = coordinate_tuple[0]
+        column = coordinate_tuple[1]
+        while row < 7 and column < 7:
+            row += 1
+            column += 1
+            if self.board[row][column] == color:
+                if len(affected_pieces) > 0:
+                    result.extend(affected_pieces)
+                break
+            elif self.board[row][column] == opposite_color:
+                affected_pieces.append((row, column))
+                continue
+            elif self.board[row][column] == Piece.VOID:
+                #again generating an invalid move
+                break
+            else:
+                raise NameError("Unexpected case at check_diagonal, S-W case")
+        # print('here is check_digonal result: '+ str(affected_pieces))
+        return result
+
 
     def get_opposite_color(self,color):
             if(color == Piece.BLACK):
@@ -161,19 +313,39 @@ class Board:
 
     #Useful I/O functions
     def return_pieces_count(self):
-        '''
+        """
         Return a dictionary : {Piece.BLACK: num, Piece.WHITE : num, Piece.VOID : num}
-        '''
-        return {}
+        """
+        pieces_count = {}
+        pieces_count[Piece.BLACK] = 0
+        pieces_count[Piece.WHITE] = 0
+        pieces_count[Piece.VOID] = 0
+
+        for row in range(8):
+            for column in range(8):
+                if self.board[row][column] == Piece.BLACK:
+                    pieces_count[Piece.BLACK] += 1
+                elif self.board[row][column] == Piece.WHITE:
+                    pieces_count[Piece.WHITE] += 1
+                else:
+                    pieces_count[Piece.VOID] += 1
+        return pieces_count
+
 
     def get_winner(self):
-        '''
+        """
         Return the color that won
         Output : Piece.White
                  Piece.Black
                  Piece.TIE # if they tie
-        '''
-        return Piece.BLACK
+        """
+        pieces_count = self.return_pieces_count()
+        if pieces_count[Piece.BLACK] > pieces_count[Piece.WHITE]:
+            return Piece.BLACK
+        elif pieces_count[Piece.BLACK] == pieces_count[Piece.WHITE]:
+            return Piece.TIE
+        else:
+            return Piece.WHITE
 
     def print_board(self):
         '''
