@@ -8,7 +8,7 @@ class Piece:
 
 class Player:
     FIRST = 1
-    SECOND = 1
+    SECOND = 2
 
 class Board_Property:
     BOARD_SIZE = 8
