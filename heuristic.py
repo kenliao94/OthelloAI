@@ -1,4 +1,4 @@
-def heuristic_1(board):
+def heuristic_1(board,color):
     '''
     :param board: A board object
     :return: a heuristic value
@@ -6,7 +6,7 @@ def heuristic_1(board):
     # specify the algorithm
     return
 
-def heuristic_2(board):
+def heuristic_2(board,color):
     '''
     :param board: A board object
     :return: a heuristic value
@@ -14,7 +14,7 @@ def heuristic_2(board):
     # specify the algorithm
     return
 
-def heuristic_3(board):
+def heuristic_3(board,color):
     '''
     :param board: A board object
     :return: a heuristic value
@@ -22,7 +22,7 @@ def heuristic_3(board):
     # specify the algorithm
     return
 
-def heuristic_4(board):
+def heuristic_4(board,color):
     '''
     :param board: A board object
     :return: a heuristic value

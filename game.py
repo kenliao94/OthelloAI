@@ -1,5 +1,5 @@
 from config import *
-
+from heuristic import *
 #This class defines the Game object with collect some info about the game and bundle
 #player objects, board object
 class Game:
