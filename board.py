@@ -36,7 +36,7 @@ class Board:
 
             Output : 1 if succeeded, 0 if failed
         '''
-        print('here is the coordinate cuple in make move : ' + str(coordinate_tuple) + ' by player' + str(color))
+        #print('here is the coordinate cuple in make move : ' + str(coordinate_tuple) + ' by player' + str(color))
         all = []
         vertical = self.check_vertical(coordinate_tuple,color)
         # print('vertical '+str(vertical))

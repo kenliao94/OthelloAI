@@ -1,3 +1,5 @@
+from config import *
+
 def convert_board_to_string(board):
         '''
         :param board: a list
@@ -26,3 +28,14 @@ def convert_string_to_board(str):
             temp.append(int(str[ i * 8 + t]))
         board.append(temp)
     return board
+
+def print_gametree_node_state(node):
+    node.board.print_board()
+    print("The current player is :")
+    if node.curPlayer == Piece.BLACK:
+        print("Black")
+    elif node.curPlayer == Piece.WHITE:
+        print("White")
+    else:
+        print("I fucked up")
+    return
