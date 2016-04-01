@@ -1,17 +1,18 @@
 from config import *
 from copy import *
 
-class node:
+class Node:
     def __init__(self,board,color):
         self.board = board
-        self.max_player = color
-        #essentially running the get opposite color function. Too lazy to port it here
-        if color == Piece.BLACK:
-            self.min_player = Piece.WHITE
-        elif color == Piece.WHITE:
-            self.min_player = Piece.BLACK
-        else:
-            raise NameError("Unexpected case at node class")
+        # self.max_player = color
+        # #essentially running the get opposite color function. Too lazy to port it here
+        # if color == Piece.BLACK:
+        #     self.min_player = Piece.WHITE
+        # elif color == Piece.WHITE:
+        #     self.min_player = Piece.BLACK
+        # else:
+        #     raise NameError("Unexpected case at node class")
+        self.curPlayer = color
 
 def minimax(node,current_level,search_limit,heur,player,max_player,min_player):
     #base cases for recursion, i.e check if depth limit is reached or the game is ended
