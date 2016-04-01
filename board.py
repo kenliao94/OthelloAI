@@ -88,7 +88,7 @@ class Board:
                         continue
                     if len(self.check_diagonal((row,column),color)) != 0:
                         possible_move.append((row,column))
-        print('possible moves: ' + str(possible_move))
+        #print('possible moves: ' + str(possible_move))
         return possible_move
 
     #End Game
