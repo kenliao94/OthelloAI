@@ -8,7 +8,8 @@ from config import *
 #Init the game, initiating human, ai, board and logger
 #p1 = AI(Piece.BLACK,AI_PROPERTY.RESPONSE_TIME,AI_PROPERTY.EASY_LEVEL)
 p1 = Human(Piece.BLACK)
-p2 = Human(Piece.WHITE)
+#p2 = Human(Piece.WHITE)
+p2 = AI(Piece.WHITE,1,1)
 board = Board([])
 #start the game
 
