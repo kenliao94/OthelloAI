@@ -78,37 +78,52 @@ def alphabeta_minimax(node,current_level,search_limit,heur,player,max_player,min
     if node.board.check_end_game():
         winner = node.board.get_winner()
         if winner == Piece.TIE:
-            return Constant.tie_value
+            return Constant.tie_value,0
         elif winner == node.max_player:
-            return Constant.max_player_endgame_value
+            return Constant.max_player_endgame_value,0
         elif winner == node.min_player:
-            return Constant.min_player_endgame_value
+            return Constant.min_player_endgame_value,0
         else:
             raise NameError("Unexpected case at minimax check phase")
     #check if the depth limit is reached
     if current_level >= search_limit:
-        return heur(node.board,max_player)
+        return heur(node.board,max_player),0
     #general cases
+    index = 0
+    desire_index = 0
     if player == max_player:
         for possible_move in node.board.get_possible_move(player):
             new_node = deepcopy(node)
             new_node.board.make_move(possible_move,player)
             opponent = new_node.board.get_opposite_color(player)
             new_node.curPlayer = opponent
-            alpha = max(alpha,alphabeta_minimax(new_node,current_level+1,search_limit,heur,min_player,max_player,min_player,alpha,beta))
+            #notice, directly calling aphabeta_minimax will return a tuple, hence need that [0]
+            return_from_minimax = alphabeta_minimax(new_node,current_level+1,search_limit,heur,min_player,max_player,min_player,alpha,beta)
+            alpha = max(alpha,return_from_minimax[0])
+            if alpha == return_from_minimax[0]:
+                #that means the new alpha value replaced old one
+                desire_index = index
+            index += 1
             if beta <= alpha:
                 break
-        return alpha
+        #Return the coordinate that has the highest utility value
+        return alpha,desire_index
+
     elif player == min_player:
         for possible_move in node.board.get_possible_move(player):
             new_node = deepcopy(node)
             new_node.board.make_move(possible_move,player)
             opponent = new_node.board.get_opposite_color(player)
             new_node.curPlayer = opponent
-            beta = min(beta,alphabeta_minimax(new_node,current_level+1,search_limit,heur,max_player,max_player,min_player,alpha,beta))
+            #notice, directly calling aphabeta_minimax will return a tuple, hence need that [0]
+            return_from_minimax = alphabeta_minimax(new_node,current_level+1,search_limit,heur,max_player,max_player,min_player,alpha,beta)
+            beta = min(beta,return_from_minimax[0])
+            if beta == return_from_minimax[0]:
+                desire_index = index
+            index += 1
             if beta <= alpha:
                 break
-        return beta
+        return beta,desire_index
     else:
         raise NameError("Unexpected case at minimax alpha beta")
     #LOOK At slides, not correctly implemented

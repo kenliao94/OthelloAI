@@ -30,3 +30,7 @@ def heuristic_4(board,color):
     # specify the algorithm
     return
 
+def dummy_heur(board,player):
+    #using the number of pieces heuristic
+    piece_count = board.return_pieces_count()
+    return piece_count[player]

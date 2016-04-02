@@ -11,7 +11,7 @@ def dummy_heur(board,player):
 current_board = Board()
 #Black player is the max in this testcase
 current_node = Node(current_board,Piece.BLACK)
-#value = minimax(current_node,0,6,dummy_heur,current_node.curPlayer,Piece.BLACK,Piece.WHITE)
+#value = minimax(current_node,0,3,dummy_heur,current_node.curPlayer,Piece.BLACK,Piece.WHITE)
 #print(value)
-value = alphabeta_minimax(current_node,0,6,dummy_heur,current_node.curPlayer,Piece.BLACK,Piece.WHITE,-1000000,1000000)
+value = alphabeta_minimax(current_node,0,3,dummy_heur,current_node.curPlayer,Piece.BLACK,Piece.WHITE,-1000000,1000000)
 print(value)
