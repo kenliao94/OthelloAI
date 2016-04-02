@@ -1,5 +1,6 @@
 from config import *
 from gametree import *
+from heuristic import *
 
 class AI:
     def __init__(self,color,responseTime,difficulty):

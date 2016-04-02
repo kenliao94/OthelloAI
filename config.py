@@ -19,6 +19,12 @@ class AI_PROPERTY:
     HARD_LEVEL = 3
     RESPONSE_TIME = 1
 
+class Constant:
+    search_level = 3
+    tie_value = 15
+    max_player_endgame_value = 1000
+    min_player_endgame_value = -1000
+
 
 
 
