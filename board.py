@@ -10,29 +10,20 @@ class Board:
 
         Note : The board index from 0 to 7 Board[][] is indexed as row x column
         '''
-        # original
-        # if board == []:
-        #     board = [[Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
-        #              [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
-        #              [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
-        #              [Piece.VOID, Piece.VOID, Piece.VOID, Piece.BLACK, Piece.WHITE, Piece.VOID, Piece.VOID, Piece.VOID],
-        #              [Piece.VOID, Piece.VOID, Piece.VOID, Piece.WHITE, Piece.BLACK, Piece.VOID, Piece.VOID, Piece.VOID],
-        #              [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
-        #              [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
-        #              [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID]]
-        # self.board = board
-        # original
 
         if board == []:
-            board = [[Piece.VOID, Piece.BLACK, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
-                     [Piece.VOID, Piece.WHITE, Piece.VOID, Piece.VOID, Piece.VOID, Piece.BLACK, Piece.VOID, Piece.VOID],
-                     [Piece.VOID, Piece.WHITE, Piece.WHITE, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
+            board = [[Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
+                     [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
+                     [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
                      [Piece.VOID, Piece.VOID, Piece.VOID, Piece.BLACK, Piece.WHITE, Piece.VOID, Piece.VOID, Piece.VOID],
                      [Piece.VOID, Piece.VOID, Piece.VOID, Piece.WHITE, Piece.BLACK, Piece.VOID, Piece.VOID, Piece.VOID],
-                     [Piece.WHITE, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.BLACK, Piece.BLACK, Piece.VOID],
-                     [Piece.WHITE, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
-                     [Piece.WHITE, Piece.VOID, Piece.BLACK, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.BLACK]]
+                     [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
+                     [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
+                     [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID]]
         self.board = board
+
+
+
 
 
     def get_affected_pieces(self,coordinate_tuple,color):
