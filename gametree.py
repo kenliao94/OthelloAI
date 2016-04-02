@@ -87,12 +87,14 @@ def alphabeta_minimax(node,current_level,search_limit,heur,player,max_player,min
             raise NameError("Unexpected case at minimax check phase")
     #check if the depth limit is reached
     if current_level >= search_limit:
-        return heur(node.board,node,player)
+        return heur(node.board,max_player)
     #general cases
     if player == max_player:
         for possible_move in node.board.get_possible_move(player):
             new_node = deepcopy(node)
             new_node.board.make_move(possible_move,player)
+            opponent = new_node.board.get_opposite_color(player)
+            new_node.curPlayer = opponent
             alpha = max(alpha,alphabeta_minimax(new_node,current_level+1,search_limit,heur,min_player,max_player,min_player,alpha,beta))
             if beta <= alpha:
                 break
@@ -101,6 +103,8 @@ def alphabeta_minimax(node,current_level,search_limit,heur,player,max_player,min
         for possible_move in node.board.get_possible_move(player):
             new_node = deepcopy(node)
             new_node.board.make_move(possible_move,player)
+            opponent = new_node.board.get_opposite_color(player)
+            new_node.curPlayer = opponent
             beta = min(beta,alphabeta_minimax(new_node,current_level+1,search_limit,heur,max_player,max_player,min_player,alpha,beta))
             if beta <= alpha:
                 break
