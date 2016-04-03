@@ -79,9 +79,9 @@ def alphabeta_minimax(node,current_level,search_limit,heur,player,max_player,min
         winner = node.board.get_winner()
         if winner == Piece.TIE:
             return Constant.tie_value,0
-        elif winner == node.max_player:
+        elif winner == max_player:
             return Constant.max_player_endgame_value,0
-        elif winner == node.min_player:
+        elif winner == min_player:
             return Constant.min_player_endgame_value,0
         else:
             raise NameError("Unexpected case at minimax check phase")
