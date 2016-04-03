@@ -25,7 +25,15 @@ class Constant:
     max_player_endgame_value = 1000
     min_player_endgame_value = -1000
 
+    level_0 = 0
+    level_1 = 1
+    level_2 = 2
+    level_3 = 3
+    level_4 = 4
+    level_5 = 5
 
-
+    stable = 1
+    unstable = -1
+    stable_unknown = 0
 
 

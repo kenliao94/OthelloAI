@@ -10,6 +10,7 @@ class Board:
 
         Note : The board index from 0 to 7 Board[][] is indexed as row x column
         '''
+
         if board == []:
             board = [[Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
                      [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID],
@@ -21,8 +22,31 @@ class Board:
                      [Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID, Piece.VOID]]
         self.board = board
 
-        return
 
+
+
+
+    def get_affected_pieces(self,coordinate_tuple,color):
+        """
+        If playerA who has dicks in color put one disk at coordinate_tuple, the affected playerB's disks will be
+        returned in a list
+        """
+        all = []
+        vertical = self.check_vertical(coordinate_tuple,color)
+        # print('vertical '+str(vertical))
+        horizontal = self.check_horizontal(coordinate_tuple,color)
+        # print('horizontal '+str(horizontal))
+        diagonal = self.check_diagonal(coordinate_tuple,color)
+        # print('diagonal '+str(diagonal))
+
+        all.extend(vertical)
+        for piece in horizontal:
+            if piece not in all:
+                all.append(piece)
+        for piece in diagonal:
+            if piece not in all:
+                all.append(piece)
+        return all
 
     def make_move(self,coordinate_tuple,color):
         '''
@@ -37,17 +61,7 @@ class Board:
             Output : 1 if succeeded, 0 if failed
         '''
         #print('here is the coordinate cuple in make move : ' + str(coordinate_tuple) + ' by player' + str(color))
-        all = []
-        vertical = self.check_vertical(coordinate_tuple,color)
-        # print('vertical '+str(vertical))
-        horizontal = self.check_horizontal(coordinate_tuple,color)
-        # print('horizontal '+str(horizontal))
-        diagonal = self.check_diagonal(coordinate_tuple,color)
-        # print('diagonal '+str(diagonal))
-        all.extend(vertical)
-        all.extend(horizontal)
-        all.extend(diagonal)
-        # print('all '+str(all))
+        all = self.get_affected_pieces(coordinate_tuple,color)
         if len(all) == 0:
             return 0
 
@@ -55,7 +69,6 @@ class Board:
         for piece in all:
 
             self.board[piece[0]][piece[1]] = color
-
 
         return 1
 
