@@ -26,6 +26,7 @@ class Board:
 
 
 
+
     def get_affected_pieces(self,coordinate_tuple,color):
         """
         If playerA who has dicks in color put one disk at coordinate_tuple, the affected playerB's disks will be
@@ -120,7 +121,8 @@ class Board:
         """
         # pieces_count : {Piece.BLACK: num, Piece.WHITE : num, Piece.VOID : num}
         pieces_count = self.return_pieces_count()
-
+        if len(self.get_possible_move(Piece.BLACK)) == 0 and len(self.get_possible_move(Piece.WHITE)) == 0:
+            return True
         if pieces_count[Piece.VOID] == 0 or pieces_count[Piece.BLACK] == 0 or pieces_count[Piece.WHITE] == 0:
             return True
         return False
