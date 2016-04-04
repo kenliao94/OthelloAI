@@ -1,9 +1,10 @@
 from config import *
 
+
 #This class defines the Game object with collect some info about the game and bundle
 #player objects, board object
 class Game:
-    def __init__(self,name,player1,player2,board):
+    def __init__(self,name,player1,player2,board,collector):
         '''
         This function init the game object
         '''
@@ -12,6 +13,7 @@ class Game:
         self.player2 = player2
         self.board = board
         self.current_round = Player.FIRST
+        self.collector = collector
 
     def start(self):
         game_end = False
@@ -20,6 +22,8 @@ class Game:
             #First player move, can be either AI or human
             if self.current_round == Player.FIRST:
                 print("Player 1's turn")
+                #Collect number of steps
+                self.collector.log_to_file(str(len(self.board.get_possible_move(self.player1.color))))
                 #Player 1
                 move = self.player1.thinking(self.board,self.board.get_possible_move(self.player1.color))
                 if move is None:
@@ -33,6 +37,7 @@ class Game:
             else:
                 #Player 2
                 print("Player 2's turn")
+                self.collector.log_to_file(str(len(self.board.get_possible_move(self.player2.color))))
                 move = self.player2.thinking(self.board,self.board.get_possible_move(self.player2.color))
                 if move is None:
                     self.current_round = Player.FIRST
@@ -46,4 +51,12 @@ class Game:
 
     def print_game_status(self):
         #print winner
-        print(self.board.get_winner())
+        winner = self.board.get_winner()
+        if winner == Piece.BLACK:
+            print("Black wins")
+        elif winner == Piece.WHITE:
+            print("White wins")
+        else:
+            print("TIE")
+        self.board.print_board()
+        return
