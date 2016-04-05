@@ -33,7 +33,7 @@ class Constant:
     level_5 = 5
 
     stable = 15
-    unstable = 1
+    unstable = 0
     stable_unknown = 0
 
 

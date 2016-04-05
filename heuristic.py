@@ -64,7 +64,6 @@ def heuristic_3(board,color):
     #row_7   # [level_5, level_0, level_4, level_4, level_4, level_4, level_0, level_5]
 
     """
-    print("H3")
     total = 0
     for row in range(8):
         for column in range(8):

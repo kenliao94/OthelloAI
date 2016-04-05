@@ -1,5 +1,5 @@
 from config import *
-
+from logger import *
 
 #This class defines the Game object with collect some info about the game and bundle
 #player objects, board object
@@ -19,11 +19,13 @@ class Game:
         game_end = False
         while not game_end:
             self.board.print_board()
+            #Pipe
+            log_to_file(convert_board_to_string(self.board.board),"board.txt")
             #First player move, can be either AI or human
             if self.current_round == Player.FIRST:
                 print("Player 1's turn")
                 #Collect number of steps
-                self.collector.log_to_file(str(len(self.board.get_possible_move(self.player1.color))))
+                #self.collector.log_to_file(str(len(self.board.get_possible_move(self.player1.color))))
                 #Player 1
                 move = self.player1.thinking(self.board,self.board.get_possible_move(self.player1.color))
                 if move is None:
@@ -37,7 +39,7 @@ class Game:
             else:
                 #Player 2
                 print("Player 2's turn")
-                self.collector.log_to_file(str(len(self.board.get_possible_move(self.player2.color))))
+                #self.collector.log_to_file(str(len(self.board.get_possible_move(self.player2.color))))
                 move = self.player2.thinking(self.board,self.board.get_possible_move(self.player2.color))
                 if move is None:
                     self.current_round = Player.FIRST
