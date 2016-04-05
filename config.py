@@ -22,8 +22,8 @@ class AI_PROPERTY:
 class Constant:
     search_level = 3
     tie_value = 15
-    max_player_endgame_value = 1000
-    min_player_endgame_value = -1000
+    max_player_endgame_value = 100000
+    min_player_endgame_value = -100000
 
     level_0 = 0
     level_1 = 1
@@ -33,7 +33,7 @@ class Constant:
     level_5 = 5
 
     stable = 15
-    unstable = -1
+    unstable = 1
     stable_unknown = 0
 
 

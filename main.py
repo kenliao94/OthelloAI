@@ -8,8 +8,8 @@ from collector import *
 
 #Init the game, initiating human, ai, board and logger
 #p1 = Human(Piece.BLACK)
-p1 = AI(Piece.BLACK,1,1, heuristic_1)
-p2 = AI(Piece.WHITE,1,1, heuristic_5)
+p1 = AI(Piece.BLACK,heuristic_1,2)
+p2 = AI(Piece.WHITE,heuristic_5,7)
 board = Board([])
 data_collector = Collector("data.out")
 #start the game

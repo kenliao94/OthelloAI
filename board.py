@@ -119,8 +119,9 @@ class Board:
 
         """
         # pieces_count : {Piece.BLACK: num, Piece.WHITE : num, Piece.VOID : num}
+        if len(self.get_possible_move(Piece.BLACK)) == 0 and len(self.get_possible_move(Piece.WHITE)) == 0:
+            return True
         pieces_count = self.return_pieces_count()
-
         if pieces_count[Piece.VOID] == 0 or pieces_count[Piece.BLACK] == 0 or pieces_count[Piece.WHITE] == 0:
             return True
         return False

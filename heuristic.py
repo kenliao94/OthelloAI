@@ -8,7 +8,6 @@ def heuristic_1(board,color):
     :param color: Used to indicate which player
     :return: a heuristic value which shows the total number of disks with this color on the board
     """
-
     total = 0
     for row in range(8):
         for column in range(8):
@@ -65,6 +64,7 @@ def heuristic_3(board,color):
     #row_7   # [level_5, level_0, level_4, level_4, level_4, level_4, level_0, level_5]
 
     """
+    print("H3")
     total = 0
     for row in range(8):
         for column in range(8):
