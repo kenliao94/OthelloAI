@@ -145,3 +145,46 @@ def dummy_heur(board,player):
     return piece_count[player]
 
 
+
+def heuristic_6(board,color):
+    score = 0
+    #count the number of pieces on the edge, give it a score, on the corner give it a score, centre give it a score
+    #corner
+    cur_board = board.board
+    if board.board[0][0] == color:
+        score += Constant.corner
+
+    if board.board[0][7] == color:
+        score += Constant.corner
+
+    if board.board[7][0] == color:
+        score += Constant.corner
+
+    if board.board[7][7] == color:
+        score += Constant.corner
+
+    #count the number of pieces on the edge
+    for i in range(1,7):
+        if cur_board[0][i] == color:
+            score += Constant.edge
+    for i in range(1,7):
+        if cur_board[7][i] == color:
+            score += Constant.edge
+    for i in range(1,7):
+        if cur_board[i][0] == color:
+            score += Constant.edge
+    for i in range(1,7):
+        if cur_board[i][7] == color:
+            score += Constant.edge
+
+    #count centre pieces
+    for i in range(1,7):
+        for q in range(1,7):
+            if cur_board[i][q] == color:
+                score += Constant.centre
+
+    return score
+
+def heuristic_7(board,player):
+    opponent = board.get_opposite_color(player)
+    return heuristic_6(board,player) - heuristic_6(board,opponent)

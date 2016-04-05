@@ -36,4 +36,8 @@ class Constant:
     unstable = 0
     stable_unknown = 0
 
+    corner = 20
+    edge = 10
+    centre = 1
+
 

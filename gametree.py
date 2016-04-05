@@ -108,6 +108,9 @@ def alphabeta_minimax(node,current_level,search_limit,heur,player,max_player,min
     # print("player:{}".format(player))
     # print("max player:{}".format(max_player))
     # print("min player:{}".format(min_player))
+
+    #print("-----------------------------------------------")#NO_PRINT
+    #print("Running at level {}".format(current_level))#NO_PRINT
     if node.board.check_end_game():
         winner = node.board.get_winner()
         if winner == Piece.TIE:
@@ -120,7 +123,10 @@ def alphabeta_minimax(node,current_level,search_limit,heur,player,max_player,min
             raise NameError("Unexpected case at minimax check phase")
     #check if the depth limit is reached
     if current_level >= search_limit:
-        return heur(node.board,max_player),0
+        heu = heur(node.board,max_player)
+        #print("Returning Heuristic Value : {}".format(heu))
+        #node.board.print_board()
+        return heu,0
     #general cases
     index = 0
     desire_index = 0
@@ -160,12 +166,19 @@ def alphabeta_minimax(node,current_level,search_limit,heur,player,max_player,min
                 if beta <= alpha:
                     break
             #Return the coordinate that has the highest utility value
+                #print("Making move : {} by {}".format(possible_move,player))
+                #new_node.board.print_board()
+                #print("the utility value here is {}".format(alpha))
             return alpha,desire_index
 
         elif player == min_player:
             for possible_move in node.board.get_possible_move(player):
                 new_node = deepcopy(node)
                 new_node.board.make_move(possible_move,player)
+
+                #print("Making move : {}".format(possible_move))
+                #new_node.board.print_board()
+
                 opponent = new_node.board.get_opposite_color(player)
                 new_node.curPlayer = opponent
                 #notice, directly calling aphabeta_minimax will return a tuple, hence need that [0]
@@ -176,6 +189,9 @@ def alphabeta_minimax(node,current_level,search_limit,heur,player,max_player,min
                 index += 1
                 if beta <= alpha:
                     break
+                #print("Making move : {} by {}".format(possible_move,player))
+                #new_node.board.print_board()
+                #print("the utility value here is {}".format(beta))
             return beta,desire_index
         else:
             raise NameError("Unexpected case at minimax alpha beta")
