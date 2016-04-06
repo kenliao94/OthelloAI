@@ -24,20 +24,20 @@ def heuristic_2(board,color):
              the number of disks in the other color
     """
     opponent = board.get_opposite_color(color)
-    disks_in_color = 0
-    disks_for_opponent = 0
-    for row in range(8):
-        for column in range(8):
-            if board.board[row][column] == color:
-                disks_in_color += 1
-            else:
-                if board.board[row][column] == opponent:
-                    disks_for_opponent += 1
-
-    return disks_in_color - disks_for_opponent
-
+    return heuristic_1(board,color) - heuristic_1(board,opponent)
 
 def heuristic_3(board,color):
+    """
+    :param board: A board object
+    :param color: Used to indicate which player
+    :return: set each square in the grid a level, set each level a number, the closer the piece to the
+             nearest boundary, the higher the level is, return the sum of numbers representing levels for
+             player who has this color disks
+    """
+    opponent = board.get_opposite_color(color)
+    return heuristic_3_one_side(board,color) - heuristic_3_one_side(board,opponent)
+
+def heuristic_3_one_side(board,color):
     """
     :param board: A board object
     :param color: Used to indicate which player
@@ -100,14 +100,30 @@ def heuristic_4(board,color):
              the number of possible moves for the opponent at this state
     """
     opponent = board.get_opposite_color(color)
-    moves_for_player_has_color = len(board.get_possible_move(color))
-    moves_for_opponent = len(board.get_possible_move(opponent))
+    return heuristic_4_one_side(board,color) - heuristic_4_one_side(board,opponent)
 
-
-    return moves_for_player_has_color - moves_for_opponent
-
+def heuristic_4_one_side(board,color):
+    """
+    :param board: A board object
+    :param color: Used to indicate which player
+    :return: a heuristic value which shows the difference between the number of possible moves for player who has this color disks and
+             the number of possible moves for the opponent at this state
+    """
+    return len(board.get_possible_move(color))
 
 def heuristic_5(board,color):
+    """
+    :param board: A board object
+    :param color: Used to indicate which player
+    :return: Assume playerA has this color disks, a heuristic value is returned to show how stable this state is for playerA
+             who has this color disks. Pieces which belong to playerA and might be flanked by the opponent right after player's turn will be set
+             to unstable. Pieces will NOT be flanked by the opponent right after player's turn will be set
+             to stable_unknown. Pieces at the corner in the grid will be set to stable.
+    """
+    opponent = board.get_opposite_color(color)
+    return heuristic_5_one_side(board,color) - heuristic_5_one_side(board,opponent)
+
+def heuristic_5_one_side(board,color):
     """
     :param board: A board object
     :param color: Used to indicate which player
@@ -139,6 +155,38 @@ def heuristic_5(board,color):
 
     return corner * Constant.stable + len(non_repeated_affected_pieces) * Constant.unstable + statable_unknown * Constant.stable_unknown
 
+def heuristic_6_one_side(board,color):
+    """
+    :param board: A board object
+    :param color: Used to indicate which player
+    :return: only check the corners and add up the points associated with each corner
+    """
+    opponent = board.get_opposite_color(color)
+
+    total = 0
+
+    corners = [board.board[0][0], board.board[0][7], board.board[7][0], board.board[7][7]]
+    for corner in corners:
+        if corner == color:
+            total += Constant.captured_corner
+        elif corner == opponent:
+            total += Constant.missed_corner
+        else:
+            total += Constant.potential_captured_corner
+    return total
+
+def heuristic_6(board,color):
+    """
+    :param board: A board object
+    :param color: Used to indicate which player
+    :return: only check the corners and add up the points associated with each corner
+    """
+    opponent = board.get_opposite_color(color)
+    return heuristic_6_one_side(board,color) - heuristic_6_one_side(board,opponent)
+
+
+
+
 def dummy_heur(board,player):
     #using the number of pieces heuristic
     piece_count = board.return_pieces_count()
@@ -146,7 +194,7 @@ def dummy_heur(board,player):
 
 
 
-def heuristic_6(board,color):
+def heuristic_7_one_side(board,color):
     score = 0
     #count the number of pieces on the edge, give it a score, on the corner give it a score, centre give it a score
     #corner
@@ -187,4 +235,4 @@ def heuristic_6(board,color):
 
 def heuristic_7(board,player):
     opponent = board.get_opposite_color(player)
-    return heuristic_6(board,player) - heuristic_6(board,opponent)
+    return heuristic_7_one_side(board,player) - heuristic_7_one_side(board,opponent)
