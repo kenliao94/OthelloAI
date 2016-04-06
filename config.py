@@ -34,10 +34,14 @@ class Constant:
 
     stable = 15
     unstable = 0
-    stable_unknown = 0
+    stable_unknown = 1
 
     corner = 20
     edge = 10
     centre = 1
+
+    captured_corner = 300
+    potential_captured_corner = 5
+    missed_corner = 1
 
 
