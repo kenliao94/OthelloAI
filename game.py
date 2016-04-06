@@ -49,6 +49,18 @@ class Game:
 
             #Check end game:
             if self.board.check_end_game():
+                winner = self.board.get_winner()
+
+                if winner == Piece.BLACK:
+                    statement = "winner: " + "BLACK"
+                elif winner == Piece.WHITE:
+                    statement = "winner: " + "WHITE"
+                else:
+                    statement = "winner: " + "TIE"
+
+                file = open("test_new_heur_result.txt", 'a')
+                file.write(statement + '\n')
+                file.close()
                 game_end = True
 
     def print_game_status(self):
