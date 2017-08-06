@@ -1,4 +1,4 @@
-# reversi_ai
+# Reversi AI
 Playing Reversi on terminal! Are you ready to face the powerful AI?
 
 # How to play
